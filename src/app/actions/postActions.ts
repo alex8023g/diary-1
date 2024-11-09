@@ -30,6 +30,7 @@ export async function getUserPosts() {
 
   const res = await prisma.post.findMany({
     where: { authorId: session?.user.id || demoUser?.id },
+    orderBy: { createdAt: 'desc' },
   });
   return res;
 }
