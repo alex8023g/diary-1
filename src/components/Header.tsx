@@ -8,16 +8,18 @@ export async function Header() {
   console.log('🚀 ~ Header ~ session:', session);
 
   return (
-    <header className='border flex px-5 py-2'>
-      <Image
-        className='dark:invert'
-        src='https://nextjs.org/icons/next.svg'
-        alt='Next.js logo'
-        width={70}
-        height={38}
-        priority
-      />
-      <SignInOutBtn session={session} />
+    <header className='border py-2'>
+      <div className='container flex px-5 mx-auto'>
+        <Image
+          className='dark:invert'
+          src='https://nextjs.org/icons/next.svg'
+          alt='Next.js logo'
+          width={70}
+          height={38}
+          priority
+        />
+        <SignInOutBtn session={session} />
+      </div>
     </header>
   );
 }
