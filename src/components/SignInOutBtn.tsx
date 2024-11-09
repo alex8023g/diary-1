@@ -9,7 +9,7 @@ type Props = {
 export function SignInOutBtn({ session }: Props) {
   if (session) {
     return (
-      <Button className='ml-auto' onClick={() => signOut()}>
+      <Button variant={'outline'} className='ml-auto' onClick={() => signOut()}>
         Sign out
       </Button>
     );

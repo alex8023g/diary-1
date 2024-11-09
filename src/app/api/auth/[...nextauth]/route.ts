@@ -65,6 +65,16 @@ export const authOptions: NextAuthOptions = {
         // return '/unauthorized'
       }
     },
+    async session({ session, token, user }) {
+      console.log('🚀 ~ session ~ user:', user);
+      console.log('🚀 ~ session ~ token:', token);
+      console.log('🚀 ~ session ~ session:', session);
+      // Send properties to the client, like an access_token and user id from a provider.
+      // session.accessToken = token.accessToken;
+      session.user.id = user.id;
+
+      return session;
+    },
   },
 };
 
