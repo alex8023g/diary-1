@@ -4,21 +4,39 @@ import { getServerSession } from 'next-auth';
 import { prisma } from '../../../prisma/prisma';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { revalidatePath } from 'next/cache';
+import { Post } from '@prisma/client';
 
-export async function addPostAction(post: string) {
+export async function addPostAction(postContent: string) {
   const session = await getServerSession(authOptions);
 
   const demoUser = await prisma.user.findUnique({
     where: { email: 'demouser@nomaildomain.com' },
   });
 
-  const res = await prisma.post.create({
+  await prisma.post.create({
     data: {
       authorId: session?.user.id || demoUser?.id || '',
-      content: post,
+      content: postContent,
     },
   });
-  console.log('🚀 ~ addPostAction ~ res:', res);
+  revalidatePath('/');
+}
+
+export async function updPostAction(post: Post) {
+  const session = await getServerSession(authOptions);
+  const demoUser = await prisma.user.findUnique({
+    where: { email: 'demouser@nomaildomain.com' },
+  });
+
+  await prisma.post.update({
+    where: {
+      id: post.id,
+      authorId: session?.user.id || demoUser?.id || '',
+    },
+    data: {
+      content: post.content,
+    },
+  });
   revalidatePath('/');
 }
 
