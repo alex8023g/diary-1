@@ -37,7 +37,6 @@ export async function updPostAction(post: Post) {
       content: post.content,
     },
   });
-  revalidatePath('/');
 }
 
 export async function getUserPosts() {

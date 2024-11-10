@@ -15,6 +15,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { updPostAction } from '@/app/actions/postActions';
 import { IconEnter } from './ui/IconEnter';
+import { Button } from './ui/button';
 
 type Props = {
   post: Post;
@@ -43,7 +44,7 @@ export function PostItem({ post }: Props) {
           >
             <input
               type='text'
-              className='w-full mt-1 line-clamp-2 text-sm/6 text-gray-950 '
+              className='w-full mt-1 line-clamp-2 text-sm/6 text-gray-950 focus:border-none focus:outline-none'
               ref={inputRef}
               // defaultValue={post.content}
               value={postContent}
@@ -72,6 +73,7 @@ export function PostItem({ post }: Props) {
           className='flex'
           onClick={() => {
             setIsPostEdit(false);
+            updPost();
           }}
         >
           <IconEnter className='size-5 my-auto' />
@@ -79,13 +81,25 @@ export function PostItem({ post }: Props) {
       ) : (
         <div className='flex'>
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <EllipsisVerticalIcon aria-hidden='true' className='h-5 w-5 my-auto' />
+            <DropdownMenuTrigger
+              asChild
+              className='focus:outline-none ring-0 border-0 focus-visible:ring-offset-0 focus-visible:ring-0'
+            >
+              <Button variant={'ghost'} className='my-auto'>
+                <EllipsisVerticalIcon aria-hidden='true' className='h-5 w-5 ' />
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56' side='left'>
               <DropdownMenuLabel>This post</DropdownMenuLabel>
-              <DropdownMenuSeparator />
 
+              <DropdownMenuSeparator />
+              <div className='flex justify-between p-2'>
+                <div className='h-4 w-4 border-2 border-white bg-red-700 rounded-full outline-red-700 outline'></div>
+                <div className='h-4 w-4 border-2 border-white bg-green-600 rounded-full outline-green-600 outline'></div>
+                <div className='h-4 w-4 border-2 border-white bg-blue-600 rounded-full outline-blue-600 outline'></div>
+                <div className='h-4 w-4 border-2 border-white bg-yellow-500 rounded-full outline-yellow-500 outline'></div>
+              </div>
+              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onSelect={() => {
                   setIsPostEdit(true);
@@ -97,6 +111,7 @@ export function PostItem({ post }: Props) {
                 <span className='inline-block mr-auto'>Edit</span>
                 <Pencil />
               </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <span className='inline-block mr-auto text-[#B00000]'>Delete</span>
                 <Trash2 color='#B00000' />
