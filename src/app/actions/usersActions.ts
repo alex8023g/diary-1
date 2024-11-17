@@ -13,12 +13,12 @@ export async function readUsers() {
   }
 }
 
-export async function addUser(userData: { username: string; password: string }) {
-  try {
-    await prisma.user.create({
-      data: userData,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-}
+// export async function addUser(userData: { username: string; password: string }) {
+//   try {
+//     await prisma.user.create({
+//       data: userData,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }

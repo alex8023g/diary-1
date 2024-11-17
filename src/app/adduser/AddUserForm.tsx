@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { addUser } from '../actions/usersActions';
+// import { addUser } from '../actions/usersActions';
 const formSchema = z.object({
   username: z.string().min(4).max(50),
   password: z.string().min(8).max(50),
@@ -38,25 +38,25 @@ export function AddUserForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    addUser(values);
+    // addUser(values);
   }
   return (
-    <Card className='w-[350px] mx-auto'>
+    <Card className="mx-auto w-[350px]">
       <CardHeader>
         <CardTitle>Create account</CardTitle>
         <CardDescription>For synchronization.</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
-              name='username'
+              name="username"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder='type your username' {...field} />
+                    <Input placeholder="type your username" {...field} />
                   </FormControl>
                   {/* <FormDescription>This is your public display name.</FormDescription> */}
                   <FormMessage />
@@ -65,19 +65,19 @@ export function AddUserForm() {
             />
             <FormField
               control={form.control}
-              name='password'
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder='type your password' {...field} />
+                    <Input placeholder="type your password" {...field} />
                   </FormControl>
                   {/* <FormDescription>This is your public display name.</FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type='submit'>Submit</Button>
+            <Button type="submit">Submit</Button>
           </form>
         </Form>
       </CardContent>

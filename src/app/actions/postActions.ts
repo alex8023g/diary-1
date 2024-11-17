@@ -1,10 +1,9 @@
 'use server';
-
 import { getServerSession } from 'next-auth';
 import { prisma } from '../../../prisma/prisma';
-import { authOptions } from '../api/auth/[...nextauth]/route';
 import { revalidatePath } from 'next/cache';
 import { Post } from '@prisma/client';
+import { authOptions } from '../api/auth/[...nextauth]/authOptions';
 
 export async function addPostAction(postContent: string) {
   const session = await getServerSession(authOptions);
