@@ -1,7 +1,5 @@
 'use server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../prisma/prismaClient/prismaClient';
 
 export async function readUsers() {
   try {
@@ -14,12 +12,12 @@ export async function readUsers() {
   }
 }
 
-export async function addUser(userData: { username: string; password: string }) {
-  try {
-    await prisma.user.create({
-      data: userData,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-}
+// export async function addUser(userData: { username: string; password: string }) {
+//   try {
+//     await prisma.user.create({
+//       data: userData,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }

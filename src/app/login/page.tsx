@@ -1,5 +1,5 @@
 'use client';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { readUsers } from '../actions/usersActions';
 
 export default function LoginPage() {
