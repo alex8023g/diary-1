@@ -1,6 +1,5 @@
 'use server';
-
-import { prisma } from '../../../prisma/prisma';
+import { prisma } from '../../../prisma/prismaClient/prismaClient';
 
 export async function readUsers() {
   try {
