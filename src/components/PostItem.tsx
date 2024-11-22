@@ -19,7 +19,7 @@ import { Button } from './ui/button';
 
 type Props = {
   post: Post & {
-    postTags: Omit<PostTags, 'postId'>;
+    postTags: Omit<PostTags, 'postId'> | null;
   };
 };
 export function PostItem({ post }: Props) {
@@ -30,6 +30,11 @@ export function PostItem({ post }: Props) {
   function updPost() {
     updPostAction({ ...post, content: postContent });
     setIsPostEdit(false);
+  }
+
+  if (post.postTags === null) {
+    // throw new Error('no postTags');
+    return null;
   }
 
   const postTagsArr = Object.keys(
@@ -72,7 +77,7 @@ export function PostItem({ post }: Props) {
           </p>
           <ul className="flex space-x-1">
             {postTagsArr.map((color) =>
-              post.postTags[color] ? (
+              post.postTags![color] ? (
                 <li
                   key={color}
                   className={`h-[5px] w-[5px] rounded-full bg-${color}-500`}
