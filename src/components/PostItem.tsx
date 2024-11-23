@@ -71,8 +71,8 @@ export function PostItem({ post }: Props) {
 
         <div className="flex items-baseline gap-x-4">
           <p className="flex-none text-xs text-gray-600">
-            <time dateTime={post.createdAt.toISOString()}>
-              {dayjs(post.createdAt).format('YYYY.MM.DD HH:mm')}
+            <time dateTime={post.date.toISOString()}>
+              {dayjs(post.date).format('DD.MM.YYYY')}
             </time>
           </p>
           <ul className="flex space-x-1">
