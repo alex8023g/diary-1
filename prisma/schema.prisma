@@ -8,18 +8,18 @@ generator client {
 }
 
 model Post {
-  id        String    @id @default(nanoid())
-  createdAt DateTime  @default(now())
+  id       String    @id @default(nanoid())
+  date     DateTime  @default(now())
   // updatedAt DateTime? @updatedAt
   // title     String   @db.VarChar(255)
-  content   String
+  content  String
   // published Boolean  @default(false)
-  author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
+  author   User      @relation(fields: [authorId], references: [id])
+  authorId String
   // tags      PostTag  @relation(fields: [postTagId], references: [id])
   // postTagId String   @unique
   // tags      PostTag[] @default([])
-  postTags  PostTags?
+  postTags PostTags?
 }
 
 // enum PostTag {

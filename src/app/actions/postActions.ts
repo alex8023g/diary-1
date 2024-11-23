@@ -5,10 +5,17 @@ import { Post, PostTags } from '@prisma/client';
 import { authOptions } from '../api/auth/[...nextauth]/authOptions';
 import { prisma } from '../../../prisma/prismaClient/prismaClient';
 
-export async function addPostAction(
-  postContent: string,
-  postTags: Omit<PostTags, 'id' | 'postId'>,
-) {
+type AddPostActionArgs = {
+  postContent: string;
+  postDate: Date | undefined;
+  postTags: Omit<PostTags, 'id' | 'postId'>;
+};
+
+export async function addPostAction({
+  postContent,
+  postDate,
+  postTags,
+}: AddPostActionArgs) {
   const session = await getServerSession(authOptions);
 
   const demoUser = await prisma.user.findUnique({
@@ -19,6 +26,7 @@ export async function addPostAction(
     data: {
       authorId: session?.user.id || demoUser?.id || '',
       content: postContent,
+      date: postDate,
       postTags: {
         create: postTags,
       },
@@ -81,7 +89,7 @@ export async function getUserPosts() {
         },
       },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { date: 'desc' },
   });
   return res;
 }

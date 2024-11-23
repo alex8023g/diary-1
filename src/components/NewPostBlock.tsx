@@ -4,9 +4,16 @@ import { IconEnter } from './ui/IconEnter';
 import { addPostAction } from '@/app/actions/postActions';
 import { PostTags } from '@prisma/client';
 import { PostTagItem } from '@/components/PostTagItem';
+import { DatePicker } from './DatePicker';
+
+const colors = ['red', 'green', 'blue', 'yellow'] as (keyof Omit<
+  PostTags,
+  'postId'
+>)[];
 
 export function NewPostBlock() {
   const [postContent, setPostContent] = useState('');
+  const [postDate, setPostDate] = useState<Date | undefined>(new Date());
   const [postTags, setPostTags] = useState<Omit<PostTags, 'id' | 'postId'>>({
     red: false,
     green: false,
@@ -34,39 +41,17 @@ export function NewPostBlock() {
           />
         </form>
 
-        <div className="flex items-baseline justify-between gap-x-4">
-          <p className="flex-none text-xs text-gray-600">
-            {/* <time dateTime={post.createdAt.toISOString()}>
-            {dayjs(post.createdAt).format('YYYY.MM.DD HH:mm')}
-            </time> */}
-          </p>
-        </div>
-        <div className="mb-3 mt-3 flex space-x-12 sm:space-x-5">
-          {/* <div className="h-3 w-3 rounded-full border-2 border-white bg-red-600 outline outline-red-600"></div>
-          <div className="h-3 w-3 rounded-full border-2 border-white bg-green-600 outline outline-green-600"></div>
-          <div className="h-3 w-3 rounded-full border-2 border-white bg-blue-600 outline outline-blue-600"></div>
-          <div className="h-3 w-3 rounded-full border-2 border-white bg-yellow-600 outline outline-yellow-600"></div> */}
-
-          <PostTagItem
-            color="red"
-            postTags={postTags}
-            setPostTags={setPostTags}
-          />
-          <PostTagItem
-            color="green"
-            postTags={postTags}
-            setPostTags={setPostTags}
-          />
-          <PostTagItem
-            color="blue"
-            postTags={postTags}
-            setPostTags={setPostTags}
-          />
-          <PostTagItem
-            color="yellow"
-            postTags={postTags}
-            setPostTags={setPostTags}
-          />
+        {/* <div className="flex items-baseline justify-between gap-x-4"></div> */}
+        <div className="mb-3 mt-3 flex space-x-6 sm:space-x-5">
+          <DatePicker date={postDate} setDate={setPostDate} />
+          {colors.map((color) => (
+            <PostTagItem
+              key={color}
+              color={color}
+              postTags={postTags}
+              setPostTags={setPostTags}
+            />
+          ))}
         </div>
       </div>
       {postContent.length ||
@@ -81,8 +66,9 @@ export function NewPostBlock() {
           className="flex"
           onClick={() => {
             // setIsPostEdit(false);
-            addPostAction(postContent, postTags);
+            addPostAction({ postContent, postDate, postTags });
             setPostContent('');
+            setPostDate(new Date());
             setPostTags({
               red: false,
               green: false,
