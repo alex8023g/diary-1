@@ -50,7 +50,7 @@ export async function updPostAction(post: PostWithTags) {
       content: post.content,
       postTags: {
         update: {
-          data: post.postTags,
+          data: post.postTags!,
         },
       },
     },
