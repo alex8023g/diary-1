@@ -1,14 +1,14 @@
 'use server';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
-import { Post, PostTags } from '@prisma/client';
 import { authOptions } from '../api/auth/[...nextauth]/authOptions';
 import { prisma } from '../../../prisma/prismaClient/prismaClient';
+import { PostTagsNoId, PostWithTags } from '@/types/postTypes';
 
 type AddPostActionArgs = {
   postContent: string;
   postDate: Date | undefined;
-  postTags: Omit<PostTags, 'id' | 'postId'>;
+  postTags: PostTagsNoId;
 };
 
 export async function addPostAction({
@@ -35,7 +35,7 @@ export async function addPostAction({
   revalidatePath('/');
 }
 
-export async function updPostAction(post: Post) {
+export async function updPostAction(post: PostWithTags) {
   const session = await getServerSession(authOptions);
   const demoUser = await prisma.user.findUnique({
     where: { email: 'demouser@nomaildomain.com' },
@@ -48,8 +48,14 @@ export async function updPostAction(post: Post) {
     },
     data: {
       content: post.content,
+      postTags: {
+        update: {
+          data: post.postTags,
+        },
+      },
     },
   });
+  revalidatePath('/');
 }
 
 export async function deletePostAction(id: string) {

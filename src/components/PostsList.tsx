@@ -1,10 +1,8 @@
-import { Post, PostTags } from '@prisma/client';
 import { PostItem } from './PostItem';
+import { PostWithTags } from '@/types/postTypes';
 
 type Props = {
-  posts: (Post & {
-    postTags: Omit<PostTags, 'postId'> | null;
-  })[];
+  posts: PostWithTags[];
 };
 export function PostsList({ posts }: Props) {
   return (

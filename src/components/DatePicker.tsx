@@ -11,15 +11,14 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import dayjs from 'dayjs';
+import { Dispatch, SetStateAction } from 'react';
 
 type Props = {
   date: Date | undefined;
-  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  setDate: Dispatch<SetStateAction<Date | undefined>>;
 };
 
 export function DatePicker({ date, setDate }: Props) {
-  // const [date, setDate] = React.useState<Date | undefined>(new Date());
-
   return (
     <Popover>
       <PopoverTrigger asChild>

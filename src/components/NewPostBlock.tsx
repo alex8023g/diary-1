@@ -2,19 +2,15 @@
 import { useState } from 'react';
 import { IconEnter } from './ui/IconEnter';
 import { addPostAction } from '@/app/actions/postActions';
-import { PostTags } from '@prisma/client';
 import { PostTagItem } from '@/components/PostTagItem';
 import { DatePicker } from './DatePicker';
-
-const colors = ['red', 'green', 'blue', 'yellow'] as (keyof Omit<
-  PostTags,
-  'postId'
->)[];
+import { tagColors } from '@/consts/tagColors';
+import { PostTagsNoId } from '@/types/postTypes';
 
 export function NewPostBlock() {
   const [postContent, setPostContent] = useState('');
   const [postDate, setPostDate] = useState<Date | undefined>(new Date());
-  const [postTags, setPostTags] = useState<Omit<PostTags, 'id' | 'postId'>>({
+  const [postTags, setPostTags] = useState<PostTagsNoId>({
     red: false,
     green: false,
     blue: false,
@@ -44,7 +40,7 @@ export function NewPostBlock() {
         {/* <div className="flex items-baseline justify-between gap-x-4"></div> */}
         <div className="mb-3 mt-3 flex space-x-6 sm:space-x-5">
           <DatePicker date={postDate} setDate={setPostDate} />
-          {colors.map((color) => (
+          {tagColors.map((color) => (
             <PostTagItem
               key={color}
               color={color}
