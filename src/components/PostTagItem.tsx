@@ -1,13 +1,11 @@
 'use client';
-
-import { PostTags } from '@prisma/client';
+import { PostTagsNoId } from '@/types/postTypes';
 import { Dispatch, SetStateAction } from 'react';
 
 type Props = {
-  // color: 'red' | 'green' | 'blue' | 'yellow';
-  color: keyof Omit<PostTags, 'id' | 'postId'>;
-  postTags: Omit<PostTags, 'id' | 'postId'>;
-  setPostTags: Dispatch<SetStateAction<Omit<PostTags, 'id' | 'postId'>>>;
+  color: keyof PostTagsNoId;
+  postTags: PostTagsNoId;
+  setPostTags: Dispatch<SetStateAction<PostTagsNoId>>;
 };
 
 export function PostTagItem({ color, postTags, setPostTags }: Props) {
@@ -19,7 +17,7 @@ export function PostTagItem({ color, postTags, setPostTags }: Props) {
       }}
     >
       <div
-        className={`h-3 w-3 rounded-full border border-white outline outline-${color}-500 ${postTags[color] ? `bg-${color}-500` : ''}`}
+        className={`h-3 w-3 rounded-full border border-white ring-2 ring-${color}-500 ${postTags[color] ? `bg-${color}-500` : ''}`}
       ></div>
     </button>
   );

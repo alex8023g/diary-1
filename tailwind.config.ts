@@ -63,9 +63,11 @@ const config: Config = {
     'bg-red-500',
     'bg-green-500',
     'bg-blue-500',
-    'outline-red-500',
-    'outline-green-500',
-    'outline-blue-500',
+    'bg-yellow-500',
+    'ring-red-500',
+    'ring-green-500',
+    'ring-blue-500',
+    'ring-yellow-500',
   ],
 };
 export default config;

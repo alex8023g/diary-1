@@ -1,5 +1,4 @@
 'use client';
-import { Post, PostTags } from '@prisma/client';
 import dayjs from 'dayjs';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import {
@@ -11,29 +10,30 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { deletePostAction, updPostAction } from '@/app/actions/postActions';
 import { IconEnter } from './ui/IconEnter';
 import { Button } from './ui/button';
+import { tagColors } from '@/consts/tagColors';
+import { PostTagItem } from './PostTagItem';
+import { PostTagsNoId, PostWithTags } from '@/types/postTypes';
 
 type Props = {
-  post: Post & {
-    postTags: Omit<PostTags, 'postId'> | null;
-  };
+  post: PostWithTags;
 };
 export function PostItem({ post }: Props) {
   const [isPostEdit, setIsPostEdit] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [postContent, setPostContent] = useState(post.content);
+  const [postTags, setPostTags] = useState<PostTagsNoId>(post.postTags!);
 
   function updPost() {
-    updPostAction({ ...post, content: postContent });
+    updPostAction({ ...post, content: postContent, postTags });
     setIsPostEdit(false);
   }
 
   if (post.postTags === null) {
-    // throw new Error('no postTags');
     return null;
   }
 
@@ -58,6 +58,7 @@ export function PostItem({ post }: Props) {
               type="text"
               className="mt-1 line-clamp-2 w-full text-base text-gray-950 focus:border-none focus:outline-none"
               ref={inputRef}
+              autoFocus={true}
               // defaultValue={post.content}
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
@@ -75,16 +76,27 @@ export function PostItem({ post }: Props) {
               {dayjs(post.date).format('DD.MM.YYYY')}
             </time>
           </p>
-          <ul className="flex space-x-1">
-            {postTagsArr.map((color) =>
-              post.postTags![color] ? (
-                <li
-                  key={color}
-                  className={`h-[5px] w-[5px] rounded-full bg-${color}-500`}
-                ></li>
-              ) : null,
-            )}
-          </ul>
+          {isPostEdit ? (
+            tagColors.map((color) => (
+              <PostTagItem
+                key={color}
+                color={color}
+                postTags={postTags}
+                setPostTags={setPostTags}
+              />
+            ))
+          ) : (
+            <ul className="flex space-x-1">
+              {postTagsArr.map((color) =>
+                post.postTags![color] ? (
+                  <li
+                    key={color}
+                    className={`h-[5px] w-[5px] rounded-full bg-${color}-500`}
+                  ></li>
+                ) : null,
+              )}
+            </ul>
+          )}
         </div>
       </div>
 
@@ -108,27 +120,16 @@ export function PostItem({ post }: Props) {
               asChild
               className="border-0 ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
             >
-              <Button variant={'ghost'} className="my-auto">
+              <Button variant={'ghost'} className="my-auto pr-0">
                 <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" side="left">
               <DropdownMenuLabel>This post</DropdownMenuLabel>
-
-              <DropdownMenuSeparator />
-              <div className="flex justify-between p-2">
-                <div className="h-4 w-4 rounded-full border-2 border-white bg-red-700 outline outline-red-700"></div>
-                <div className="h-4 w-4 rounded-full border-2 border-white bg-green-600 outline outline-green-600"></div>
-                <div className="h-4 w-4 rounded-full border-2 border-white bg-blue-600 outline outline-blue-600"></div>
-                <div className="h-4 w-4 rounded-full border-2 border-white bg-yellow-500 outline outline-yellow-500"></div>
-              </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onSelect={() => {
                   setIsPostEdit(true);
-                  setTimeout(() => {
-                    inputRef.current?.focus();
-                  }, 0);
                 }}
               >
                 <span className="mr-auto inline-block">Edit</span>
@@ -144,6 +145,11 @@ export function PostItem({ post }: Props) {
                   Delete
                 </span>
                 <Trash2 color="#B00000" />
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <span className="mr-auto inline-block">Cancel</span>
+                <X />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
