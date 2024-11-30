@@ -2,13 +2,26 @@ import GithubProvider from 'next-auth/providers/github';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { NextAuthOptions } from 'next-auth';
 import { prisma } from '../../../../../prisma/prismaClient/prismaClient';
+import GoogleProvider from 'next-auth/providers/google';
+
+if (!process.env.GITHUB_ID || !process.env.GITHUB_SECRET)
+  throw new Error('GITHUB_ID and GITHUB_SECRET must be set in .env');
+
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET)
+  throw new Error(
+    'GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must be set in .env',
+  );
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID || '',
-      clientSecret: process.env.GITHUB_SECRET || '',
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     /* 
     CredentialsProvider({
