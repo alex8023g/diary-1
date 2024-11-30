@@ -19,7 +19,7 @@ export async function Header() {
         /> */}
         <Image
           className="dark:invert"
-          src="/DIARY.simple.svg"
+          src="/DIARY.simple4.svg"
           alt="Next.js logo"
           width={110}
           height={50}
