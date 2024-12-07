@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { IconEnter } from './ui/IconEnter';
+import { IconEnter } from './Icons/IconEnter';
 import { addPostAction } from '@/app/actions/postActions';
 import { PostTagItem } from '@/components/PostTagItem';
 import { DatePicker } from './DatePicker';
