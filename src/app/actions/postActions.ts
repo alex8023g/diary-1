@@ -92,6 +92,7 @@ export async function getUserPosts() {
           green: true,
           blue: true,
           yellow: true,
+          fuchsia: true,
         },
       },
     },

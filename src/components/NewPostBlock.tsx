@@ -15,6 +15,7 @@ export function NewPostBlock() {
     green: false,
     blue: false,
     yellow: false,
+    fuchsia: false,
   });
 
   return (
@@ -51,10 +52,7 @@ export function NewPostBlock() {
         </div>
       </div>
       {postContent.length ||
-      postTags.red ||
-      postTags.green ||
-      postTags.blue ||
-      postTags.yellow ? (
+      Object.values(postTags).some((postTag) => postTag) ? (
         <button
           type="submit"
           value="Submit"
@@ -70,6 +68,7 @@ export function NewPostBlock() {
               green: false,
               blue: false,
               yellow: false,
+              fuchsia: false,
             });
           }}
         >

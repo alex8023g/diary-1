@@ -31,12 +31,13 @@ model Post {
 
 model PostTags {
   // id     String  @id @default(nanoid())
-  red    Boolean
-  green  Boolean
-  blue   Boolean
-  yellow Boolean
-  post   Post    @relation(fields: [postId], references: [id])
-  postId String  @unique
+  red     Boolean
+  green   Boolean
+  blue    Boolean
+  yellow  Boolean
+  fuchsia Boolean @default(false)
+  post    Post    @relation(fields: [postId], references: [id])
+  postId  String  @unique
 }
 
 model Profile {

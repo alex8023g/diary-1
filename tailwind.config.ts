@@ -64,10 +64,12 @@ const config: Config = {
     'bg-green-500',
     'bg-blue-500',
     'bg-yellow-500',
+    'bg-fuchsia-500',
     'ring-red-500',
     'ring-green-500',
     'ring-blue-500',
     'ring-yellow-500',
+    'ring-fuchsia-500',
   ],
 };
 export default config;

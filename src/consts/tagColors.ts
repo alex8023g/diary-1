@@ -1,6 +1,9 @@
 import { PostTags } from '@prisma/client';
 
-export const tagColors = ['red', 'green', 'blue', 'yellow'] as (keyof Omit<
-  PostTags,
-  'postId'
->)[];
+export const tagColors = [
+  'red',
+  'green',
+  'blue',
+  'yellow',
+  'fuchsia',
+] as (keyof Omit<PostTags, 'postId'>)[];

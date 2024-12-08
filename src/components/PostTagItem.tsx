@@ -11,7 +11,7 @@ type Props = {
 export function PostTagItem({ color, postTags, setPostTags }: Props) {
   return (
     <button
-      className="p-2"
+      className="p-1"
       onClick={() => {
         setPostTags({ ...postTags, [color]: !postTags[color] });
       }}

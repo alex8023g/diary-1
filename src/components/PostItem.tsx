@@ -65,13 +65,13 @@ export function PostItem({ post }: Props) {
             />
           </form>
         ) : (
-          <p className="mt-1 line-clamp-2 min-h-1 text-base text-gray-950 sm:text-sm/6">
+          <p className="mt-1 line-clamp-2 min-h-1 text-base text-gray-950">
             {postContent}
           </p>
         )}
 
         <div className="flex items-baseline gap-x-4">
-          <p className="flex-none text-xs text-gray-600">
+          <p className="flex-none text-sm text-gray-600 sm:text-sm/6">
             <time dateTime={post.date.toISOString()}>
               {dayjs(post.date).format('DD.MM.YYYY')}
             </time>
