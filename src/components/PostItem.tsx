@@ -13,7 +13,7 @@ import {
 import { Pencil, Trash2, X } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { deletePostAction, updPostAction } from '@/app/actions/postActions';
-import { IconEnter } from './ui/IconEnter';
+import { IconEnter } from './Icons/IconEnter';
 import { Button } from './ui/button';
 import { tagColors } from '@/consts/tagColors';
 import { PostTagItem } from './PostTagItem';

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="121px" height="24px" viewBox="0 0 121 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Group</title>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
         <g id="Group" transform="translate(0.92, 0.3614)">
-            <g id="DiARY.simple" transform="translate(0, 1.8066)" fill="#000000" fill-rule="nonzero">
+            <g id="DiARY.simple" transform="translate(0, 1.8066)" fill="#000000" fillRule="nonzero">
                 <path d="M-2.84217094e-14,16.824 L5.184,16.824 C10.464,16.824 12.936,13.824 12.936,8.64 L12.936,8.136 C12.936,2.88 10.128,0.384 5.136,0.384 L-2.84217094e-14,0.384 L-2.84217094e-14,16.824 Z M2.472,14.76 L2.472,2.448 L4.944,2.448 C8.352,2.448 10.272,3.816 10.272,8.136 L10.272,8.952 C10.272,13.08 8.688,14.76 5.232,14.76 L2.472,14.76 Z" id="Shape"></path>
                 <path d="M15.624,16.824 L17.976,16.824 L17.976,4.584 L15.624,4.584 L15.624,16.824 Z M15.6,2.304 L18,2.304 L18,0 L15.6,0 L15.6,2.304 Z" id="Shape"></path>
                 <path d="M19.944,16.824 L22.272,16.824 L23.832,12.36 L30.12,12.36 L31.704,16.824 L34.296,16.824 L28.392,0.384 L25.896,0.384 L19.944,16.824 Z M26.904,3.504 L26.976,3.504 L29.4,10.392 L24.504,10.392 L26.904,3.504 Z" id="Shape"></path>

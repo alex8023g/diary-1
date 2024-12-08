@@ -1,29 +1,14 @@
-'use client';
-import { signIn } from 'next-auth/react';
-import { readUsers } from '../actions/usersActions';
+import { getServerSession } from 'next-auth';
+import LoginBtnsGroup from './LoginBtnsGroup';
+import { authOptions } from '../api/auth/[...nextauth]/authOptions';
+import { redirect } from 'next/navigation';
 
-export default function LoginPage() {
-  // const { data: session } = useSession();
-  // if (session) {
-  //   return (
-  //     <>
-  //       Signed in as {session.user.email} <br />
-  //       <button onClick={() => signOut()}>Sign out</button>
-  //     </>
-  //   );
-  // }
-  return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-      <br />
-      <button
-        onClick={async () => {
-          await readUsers();
-        }}
-      >
-        read users
-      </button>
-    </>
-  );
+export default async function LoginPage() {
+  const session = await getServerSession(authOptions);
+  console.log('🚀 ~ LoginPage ~ session:', session);
+  if (!session) {
+    return <LoginBtnsGroup />;
+  } else {
+    redirect('/');
+  }
 }
