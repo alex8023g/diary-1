@@ -4,7 +4,7 @@ export function UserCircleIconCustom({ color }: { color: string }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill={color}
-      className="size-6"
+      className="size-7"
     >
       <path
         fillRule="evenodd"

@@ -20,9 +20,7 @@ type Props = {
 };
 export function SignInOutBtn({ session }: Props) {
   const pathname = usePathname();
-  console.log('🚀 ~ SignInOutBtn ~ pathname:', pathname);
   if (session) {
-    console.log('🚀 ~ SignInOutBtn ~ session:', session);
     return (
       <DropdownMenu>
         <DropdownMenuTrigger
