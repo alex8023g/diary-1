@@ -17,6 +17,7 @@ export function CalendarList({ posts }: Props) {
     <div className='mx-auto grid max-w-3xl grid-cols-1 gap-x-8 gap-y-8 px-4 py-16 sm:grid-cols-2 sm:px-6 xl:max-w-none xl:grid-cols-3 xl:px-8 2xl:grid-cols-4'>
       {monthsMatrix.map((month, monthIndex) => {
         let firstDate = false;
+        const lastDayOfMonth = dayjs().month(-monthIndex).endOf('month').date();
         let day = 0;
 
         return (
@@ -63,14 +64,10 @@ export function CalendarList({ posts }: Props) {
                 );
                 return (
                   <div key={item} className='bg-white py-2 text-center'>
-                    <div>
-                      {firstDate &&
-                      day < dayjs().month(-monthIndex).endOf('month').date()
-                        ? ++day
-                        : ''}
-                    </div>
+                    <div>{firstDate && day < lastDayOfMonth ? ++day : ''}</div>
                     <ul className='flex justify-center space-x-1'>
                       {firstDate &&
+                        day < lastDayOfMonth &&
                         tagColors.map((color) =>
                           post?.postTags![color] ? (
                             <li
