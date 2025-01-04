@@ -2,6 +2,7 @@
 import { getUserPosts } from '@/app/actions/postActions';
 import { tagColors } from '@/consts/tagColors';
 import { CalendarDay, CalendarType } from '@/types/calendarType';
+import { PostWithTags } from '@/types/postTypes';
 import { PostTags } from '@prisma/client';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ru';
@@ -25,19 +26,25 @@ export async function createCalendarList() {
         if (dayjs().month(monthIndex).date(1).weekday() === daysMatrixIndex) {
           isFirstDayInDaysMatrix = true;
         }
-        const post = isFirstDayInDaysMatrix
-          ? posts.find(
-              (item) =>
-                dayjs(item.date).month() ===
-                  dayjs().month(monthIndex).month() &&
-                dayjs(item.date).year() === dayjs().month(monthIndex).year() &&
-                dayjs(item.date).date() ===
-                  dayjs()
-                    .month(monthIndex)
-                    .date(day + 1)
-                    .date(),
-            )
-          : null;
+
+        let post: PostWithTags | undefined = undefined;
+
+        if (
+          isFirstDayInDaysMatrix &&
+          day < dayjs().month(monthIndex).endOf('month').date()
+        ) {
+          post = posts.find(
+            (item) =>
+              dayjs(item.date).month() === dayjs().month(monthIndex).month() &&
+              dayjs(item.date).year() === dayjs().month(monthIndex).year() &&
+              dayjs(item.date).date() ===
+                dayjs()
+                  .month(monthIndex)
+                  .date(day + 1)
+                  .date(),
+          );
+        }
+
         const tags: (keyof Omit<PostTags, 'postId'>)[] = [];
 
         if (post) {
@@ -67,6 +74,7 @@ export async function createCalendarList() {
       month: dayjs().month(monthIndex).format('MMMM'),
       days: daysMatrix,
     });
+
     if (
       dayjs(posts[posts.length - 1].date).format('YYYY-MMMM') ===
       dayjs().month(monthIndex).format('YYYY-MMMM')
@@ -75,6 +83,7 @@ export async function createCalendarList() {
     }
     monthIndex -= 1;
   }
+
   console.log(
     '🚀 ~ Test1Client ~ calendarList:',
     calendarList,
