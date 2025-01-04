@@ -6,7 +6,6 @@ import { usePathname, useRouter } from 'next/navigation';
 export function TabsView() {
   const pathname = usePathname();
   const router = useRouter();
-  console.log('🚀 ~ TabsView ~ pathname:', pathname);
   return (
     <Tabs
       className='ml-auto w-[80px]'
