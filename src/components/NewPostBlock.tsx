@@ -1,13 +1,13 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { IconEnter } from './Icons/IconEnter';
 import { addPostAction } from '@/app/actions/postActions';
 import { PostTagItem } from '@/components/PostTagItem';
 import { DatePicker } from './DatePicker';
 import { tagColors } from '@/consts/tagColors';
 import { PostTagsNoId, PostWithTags } from '@/types/postTypes';
-import { DateIsReserved } from './DateIsReserved';
 import { CancelIcon } from './Icons/CancelIcon';
+import dayjs from 'dayjs';
 
 type Props = {
   posts: PostWithTags[];
@@ -23,6 +23,21 @@ export function NewPostBlock({ posts }: Props) {
     fuchsia: false,
   });
   const [isDateReserved, setIsDateReserved] = useState(false);
+
+  React.useEffect(() => {
+    console.log('🚀 ~ React.useEffect ~ postDate:', postDate);
+    const res = posts.find(
+      (post) =>
+        dayjs(post.date).format('YYYY-MM-DD') ===
+        dayjs(postDate).format('YYYY-MM-DD'),
+    );
+    if (res) {
+      console.log('🚀 ~ React.useEffect ~ res:', res);
+      setIsDateReserved(true);
+    } else {
+      setIsDateReserved(false);
+    }
+  }, [postDate, posts]);
 
   return (
     <>
@@ -83,7 +98,15 @@ export function NewPostBlock({ posts }: Props) {
               className='flex'
               onClick={() => {
                 // setIsPostEdit(false);
-                addPostAction({ postContent, postDate, postTags });
+                addPostAction({
+                  postContent,
+                  postDate: new Date(
+                    dayjs(postDate)
+                      .add(-postDate!.getTimezoneOffset(), 'm')
+                      .format(),
+                  ),
+                  postTags,
+                });
                 setPostContent('');
                 setPostDate(new Date());
                 setPostTags({
@@ -101,13 +124,13 @@ export function NewPostBlock({ posts }: Props) {
         ) : null}
       </div>
       {(Boolean(postContent.length) ||
-        Object.values(postTags).some((postTag) => postTag)) && (
-        <DateIsReserved
-          posts={posts}
-          postDate={postDate}
-          setIsDateReserved={setIsDateReserved}
-        />
-      )}
+        Object.values(postTags).some((postTag) => postTag)) &&
+        isDateReserved && (
+          <p className='text-justify text-orange-600'>
+            На эту дату уже есть запись. Внесите изменения в существующую запись
+            или измените дату.
+          </p>
+        )}
     </>
   );
 }
