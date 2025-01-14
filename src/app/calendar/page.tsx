@@ -1,6 +1,6 @@
 import { createCalendarList } from '../actions/createCalendarList';
 
-export default async function Test1Page() {
+export default async function CalendarPage() {
   const calendarList = await createCalendarList();
   return (
     <div className='mx-auto grid max-w-3xl grid-cols-1 gap-x-8 gap-y-8 px-4 py-16 sm:grid-cols-2 sm:px-6 xl:max-w-none xl:grid-cols-3 xl:px-8 2xl:grid-cols-4'>
@@ -20,13 +20,13 @@ export default async function Test1Page() {
             <div></div>
           </div>
           <div className='grid grid-cols-7 text-center text-sm font-medium'>
-            <div>Пн</div>
-            <div>Вт</div>
-            <div>Ср</div>
-            <div>Чт</div>
-            <div>Пт</div>
-            <div>Сб</div>
             <div>Вс</div>
+            <div>Сб</div>
+            <div>Пт</div>
+            <div>Чт</div>
+            <div>Ср</div>
+            <div>Вт</div>
+            <div>Пн</div>
           </div>
           <div className='grid grid-cols-7 rounded-lg bg-white text-sm'>
             {month.days.map((item) => {

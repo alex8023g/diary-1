@@ -72,7 +72,7 @@ export async function createCalendarList() {
     calendarList.push({
       year: dayjs().month(monthIndex).format('YYYY'),
       month: dayjs().month(monthIndex).format('MMMM'),
-      days: daysMatrix,
+      days: daysMatrix.reverse(),
     });
 
     if (
