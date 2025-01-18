@@ -12,9 +12,8 @@ dayjs.extend(weekday);
 
 export async function createCalendarList() {
   const posts = await getUserPosts();
-  console.log('🚀 ~ Test1Client ~ posts:', posts);
+
   let monthIndex = 0;
-  let postIndex = 0;
   const calendarList: CalendarType[] = [];
 
   while (true) {
@@ -48,14 +47,11 @@ export async function createCalendarList() {
         const tags: (keyof Omit<PostTags, 'postId'>)[] = [];
 
         if (post) {
-          // console.log('🚀 ~ .map ~ post:', post);
           tagColors.forEach((color) => {
             if (post.postTags![color]) {
               tags.push(color);
             }
           });
-
-          postIndex += 1;
         }
 
         return {
@@ -69,10 +65,21 @@ export async function createCalendarList() {
         };
       });
 
+    // reverse lines in days matrix
+    const daysMatrixReversed: CalendarDay[] = [];
+
+    for (let i = 1; i < 7; i++) {
+      const week = daysMatrix.slice(i * 7 - 7, i * 7);
+      if (week.some((day) => day.date)) {
+        daysMatrixReversed.unshift(...week);
+      }
+    }
+
     calendarList.push({
       year: dayjs().month(monthIndex).format('YYYY'),
       month: dayjs().month(monthIndex).format('MMMM'),
-      days: daysMatrix.reverse(),
+      // days: daysMatrix,
+      days: daysMatrixReversed,
     });
 
     if (
@@ -83,13 +90,6 @@ export async function createCalendarList() {
     }
     monthIndex -= 1;
   }
-
-  console.log(
-    '🚀 ~ Test1Client ~ calendarList:',
-    calendarList,
-    postIndex,
-    dayjs().month(monthIndex).format('YYYY-MMMM'),
-  );
 
   return calendarList;
 }
