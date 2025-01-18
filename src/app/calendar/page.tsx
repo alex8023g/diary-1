@@ -20,13 +20,13 @@ export default async function CalendarPage() {
             <div></div>
           </div>
           <div className='grid grid-cols-7 text-center text-sm font-medium'>
-            <div>Вс</div>
-            <div>Сб</div>
-            <div>Пт</div>
-            <div>Чт</div>
-            <div>Ср</div>
-            <div>Вт</div>
             <div>Пн</div>
+            <div>Вт</div>
+            <div>Ср</div>
+            <div>Чт</div>
+            <div>Пт</div>
+            <div>Сб</div>
+            <div>Вс</div>
           </div>
           <div className='grid grid-cols-7 rounded-lg bg-white text-sm'>
             {month.days.map((item) => {
