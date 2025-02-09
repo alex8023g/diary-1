@@ -13,7 +13,7 @@ dayjs.extend(weekday);
 export async function createCalendarList() {
   const posts = await getUserPosts();
 
-  let monthIndex = 0;
+  let monthIndex = dayjs().month();
   const calendarList: CalendarType[] = [];
 
   while (true) {
