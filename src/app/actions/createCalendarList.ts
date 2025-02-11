@@ -83,8 +83,9 @@ export async function createCalendarList() {
     });
 
     if (
+      posts.length === 0 ||
       dayjs(posts[posts.length - 1].date).format('YYYY-MMMM') ===
-      dayjs().month(monthIndex).format('YYYY-MMMM')
+        dayjs().month(monthIndex).format('YYYY-MMMM')
     ) {
       break;
     }
