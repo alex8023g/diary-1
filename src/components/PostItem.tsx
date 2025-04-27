@@ -18,7 +18,9 @@ import { Button } from './ui/button';
 import { tagColors } from '@/consts/tagColors';
 import { PostTagItem } from './PostTagItem';
 import { PostTagsNoId, PostWithTags } from '@/types/postTypes';
+import utc from 'dayjs/plugin/utc';
 
+dayjs.extend(utc);
 type Props = {
   post: PostWithTags;
 };
@@ -42,12 +44,12 @@ export function PostItem({ post }: Props) {
   ) as (keyof typeof post.postTags)[];
 
   return (
-    <li className="flex gap-x-4 py-5">
-      <div className="flex-auto">
+    <li className='flex gap-x-4 py-5'>
+      <div className='flex-auto'>
         {isPostEdit ? (
           <form
-            id="post-input-form"
-            action=""
+            id='post-input-form'
+            action=''
             autoFocus
             onSubmit={(e) => {
               e.preventDefault();
@@ -55,8 +57,8 @@ export function PostItem({ post }: Props) {
             }}
           >
             <input
-              type="text"
-              className="mt-1 line-clamp-2 w-full text-base text-gray-950 focus:border-none focus:outline-none"
+              type='text'
+              className='mt-1 line-clamp-2 w-full text-base text-gray-950 focus:border-none focus:outline-none'
               ref={inputRef}
               autoFocus={true}
               // defaultValue={post.content}
@@ -65,15 +67,16 @@ export function PostItem({ post }: Props) {
             />
           </form>
         ) : (
-          <p className="mt-1 line-clamp-2 min-h-1 text-base text-gray-950">
+          <p className='mt-1 line-clamp-2 min-h-1 text-base text-gray-950'>
             {postContent}
           </p>
         )}
 
-        <div className="flex items-baseline gap-x-4">
-          <p className="flex-none text-sm text-gray-600 sm:text-sm/6">
+        <div className='flex items-baseline gap-x-4'>
+          <p className='flex-none text-sm text-gray-600 sm:text-sm/6'>
             <time dateTime={post.date.toISOString()}>
-              {dayjs(post.date).format('DD.MM.YYYY')}
+              {/* {dayjs(post.date).format('DD.MM.YYYY')} */}
+              {dayjs.utc(post.date).format('DD.MM.YYYY')}
             </time>
           </p>
           {isPostEdit ? (
@@ -86,7 +89,7 @@ export function PostItem({ post }: Props) {
               />
             ))
           ) : (
-            <ul className="flex space-x-1">
+            <ul className='flex space-x-1'>
               {postTagsArr.map((color) =>
                 post.postTags![color] ? (
                   <li
@@ -102,29 +105,29 @@ export function PostItem({ post }: Props) {
 
       {isPostEdit ? (
         <button
-          type="submit"
-          value="Submit"
-          form="post-input-form"
-          className="flex"
+          type='submit'
+          value='Submit'
+          form='post-input-form'
+          className='flex'
           onClick={() => {
             setIsPostEdit(false);
             updPost();
           }}
         >
-          <IconEnter className="my-auto size-5" />
+          <IconEnter className='my-auto size-5' />
         </button>
       ) : (
-        <div className="flex">
+        <div className='flex'>
           <DropdownMenu>
             <DropdownMenuTrigger
               asChild
-              className="border-0 ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className='border-0 ring-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0'
             >
-              <Button variant={'ghost'} className="my-auto pr-0">
-                <EllipsisVerticalIcon aria-hidden="true" className="h-5 w-5" />
+              <Button variant={'ghost'} className='my-auto pr-0'>
+                <EllipsisVerticalIcon aria-hidden='true' className='h-5 w-5' />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" side="left">
+            <DropdownMenuContent className='w-56' side='left'>
               <DropdownMenuLabel>This post</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
@@ -132,7 +135,7 @@ export function PostItem({ post }: Props) {
                   setIsPostEdit(true);
                 }}
               >
-                <span className="mr-auto inline-block">Edit</span>
+                <span className='mr-auto inline-block'>Edit</span>
                 <Pencil />
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -141,14 +144,14 @@ export function PostItem({ post }: Props) {
                   deletePostAction(post.id);
                 }}
               >
-                <span className="mr-auto inline-block text-[#B00000]">
+                <span className='mr-auto inline-block text-[#B00000]'>
                   Delete
                 </span>
-                <Trash2 color="#B00000" />
+                <Trash2 color='#B00000' />
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <span className="mr-auto inline-block">Cancel</span>
+                <span className='mr-auto inline-block'>Cancel</span>
                 <X />
               </DropdownMenuItem>
             </DropdownMenuContent>
