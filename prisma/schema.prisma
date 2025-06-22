@@ -9,7 +9,7 @@ generator client {
 
 model Post {
   id       String    @id @default(nanoid())
-  date     DateTime  @default(now())
+  date     DateTime  @default(now()) @db.Date
   // updatedAt DateTime? @updatedAt
   // title     String   @db.VarChar(255)
   content  String
@@ -36,7 +36,7 @@ model PostTags {
   blue    Boolean
   yellow  Boolean
   fuchsia Boolean @default(false)
-  post    Post    @relation(fields: [postId], references: [id])
+  post    Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId  String  @unique
 }
 

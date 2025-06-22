@@ -13,6 +13,7 @@ type Props = {
   posts: PostWithTags[];
 };
 export function NewPostBlock({ posts }: Props) {
+  console.log('🚀 ~ NewPostBlock ~ posts:', posts);
   const [postContent, setPostContent] = useState('');
   const [postDate, setPostDate] = useState<Date | undefined>(new Date());
   const [postTags, setPostTags] = useState<PostTagsNoId>({
